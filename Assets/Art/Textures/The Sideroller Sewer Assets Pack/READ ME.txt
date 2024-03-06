@@ -1,0 +1,40 @@
+----------------------------------------
+***Thank you for the downloading.***
+***The Sideroller Sewer Assets Pack***
+----------------------------------------
+
+
+Tile size : 16 x 16 pixel
+
+This assets contain following file
+
+1 ground tileset
+1 water tileset
+1 wall tileset
+1 gate gackground sprite
+2 chest sprite sheet + 12 individual sprites
+1 latern sprite sheet + 5 individual sprites
+1 save point(idle) sprite sheet + 8 individual sprites
+1 save point(isaved) sprite sheet + 11 individual sprites
+1 torch sprite sheet+ 7 individual sprites
+2 tunnel sprite sheet + 7 individual sprites
+1 BG sprite + 9 individual sprites
+1 barrel fragments sprite + 5 individual sprites
+1 crate fragments sprite + 4 individual sprites
+1 props sprite + 25 individual sprites
+1 square nyan(sample charactor)
+
+total : 110 sprites
+
+----------------------------------------
+
+You can use any and all of the assets in this package in your own games including commercial 
+or non-commercial one.
+
+License (CC0)
+http://creativecommons.org/publicdomain/zero/1.0/
+
+----------------------------------------
+
+Created by GFragger 
+
