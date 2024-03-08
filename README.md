@@ -1,11 +1,4 @@
-
-## $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
-## $                                         $
-## $    C  I  T  Y   -   H  O  P  P  E  R    $
-## $                                         $
-## $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
-                       
-
+# C  I  T  Y   -   H  O  P  P  E  R 
 
 City Hopper is a 2D jump and run game developed using Unity.
 
