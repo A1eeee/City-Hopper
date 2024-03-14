@@ -17,6 +17,8 @@ public class PlayerMovement : MonoBehaviour
     private float speed = 6.75f;
     private bool isFacingRight = true;
 
+    // TODO: Add a jump sound effect
+    // TODO: No bouncing when landing on the ground
     // Update is called once per frame
     void Update()
     {
@@ -27,7 +29,7 @@ public class PlayerMovement : MonoBehaviour
             rb.velocity = new Vector2(horizontal * speed, rb.velocity.y);
         }
 
-        if (jumpingPower > 0)
+        if (!IsGrounded())
         {
             rb.sharedMaterial = BounMaterial2D;
         }
@@ -46,7 +48,7 @@ public class PlayerMovement : MonoBehaviour
             rb.velocity = new Vector2(0.0f, rb.velocity.y);
         }
 
-        if (jumpingPower >= 27f && IsGrounded())
+        if (jumpingPower >= 24f && IsGrounded())
         {
             float tempy = jumpingPower;
             rb.velocity = new Vector2(horizontal * speed, tempy);
