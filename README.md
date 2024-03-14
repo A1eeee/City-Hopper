@@ -4,13 +4,12 @@ City Hopper is a 2D jump and run game developed using Unity.
 
 ## Description
 
-City Hopper puts players in the shoes of [character name] as they navigate through a vibrant cityscape filled with obstacles and challenges. With intuitive controls and engaging gameplay mechanics, players must jump, dodge, and sprint their way to victory.
+City Hopper puts players in the shoes of [character name] as they navigate through a vibrant cityscape filled with obstacles and challenges. With intuitive controls and engaging gameplay mechanics, players must jump, their way to victory.
 
 ## Features
 
 - Smooth and responsive controls
-- Diverse levels with increasing difficulty
-- Collectibles and power-ups scattered throughout the city
+- The heigher you get, the more difficult it would be.
 - Leaderboards to compete with friends and other players
 
 ## Installation
