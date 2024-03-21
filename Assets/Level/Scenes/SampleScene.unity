@@ -6486,6 +6486,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   BounMaterial2D: {fileID: 6200000, guid: 13d1ecac1019dfb4d82ae00895bef1eb, type: 2}
   NormMaterial2D: {fileID: 6200000, guid: 3d780db2ba5a25544904e1863ef8d978, type: 2}
+  animator: {fileID: 1598656951}
   rb: {fileID: 1598656946}
   groundCheck: {fileID: 1865601642}
   groundLayer:

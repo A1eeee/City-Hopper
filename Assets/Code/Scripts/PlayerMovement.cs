@@ -5,8 +5,8 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
-
     public PhysicsMaterial2D BounMaterial2D, NormMaterial2D;
+    public Animator animator;
 
     [SerializeField] private Rigidbody2D rb;
     [SerializeField] private Transform groundCheck;
@@ -18,11 +18,14 @@ public class PlayerMovement : MonoBehaviour
     private bool isFacingRight = true;
 
     // TODO: Add a jump sound effect
+    // TODO: Split in two Documents, like PlayerMovement and PlayerController = Is on Ground, can Jump etc.
     // TODO: No bouncing when landing on the ground
     // Update is called once per frame
-    void Update()
+    private void Update()
     {
         horizontal = Input.GetAxisRaw("Horizontal");
+
+        animator.SetFloat("Speed", Mathf.Abs(horizontal));
 
         if (jumpingPower == 0.0f && IsGrounded())
         {
@@ -67,7 +70,7 @@ public class PlayerMovement : MonoBehaviour
         Flip();
     }
 
-    void ResetJump()
+    private void ResetJump()
     {
         jumpingPower = 0.0f;
     }
