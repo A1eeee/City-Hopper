@@ -25,7 +25,6 @@ public class PlayerMovement : MonoBehaviour
     {
         horizontal = Input.GetAxisRaw("Horizontal");
 
-        animator.SetBool("TakeOff", false);
         animator.SetBool("IsKeyDownSpace", false);
 
         animator.SetFloat("Speed", Mathf.Abs(horizontal));
@@ -39,7 +38,6 @@ public class PlayerMovement : MonoBehaviour
         {
             rb.sharedMaterial = BounMaterial2D;
             animator.SetBool("IsJumping", true);
-            animator.SetBool("IsKeyDownSpace", true);
         }
         else
         {
@@ -50,16 +48,17 @@ public class PlayerMovement : MonoBehaviour
         if (Input.GetKey("space") && IsGrounded())
         {
             jumpingPower += 0.05f;
-            animator.SetBool("IsKeyDownSpace", true);
         }
 
         if (Input.GetKeyDown("space") && IsGrounded())
         {
             rb.velocity = new Vector2(0.0f, rb.velocity.y);
+            animator.SetBool("IsKeyDownSpace", true);
         }
 
         if (jumpingPower >= 24f && IsGrounded())
         {
+            animator.SetBool("IsKeyDownSpace", false);
             float tempy = jumpingPower;
             rb.velocity = new Vector2(horizontal * speed, tempy);
             Invoke("ResetJump", 0.2f);
@@ -67,7 +66,7 @@ public class PlayerMovement : MonoBehaviour
 
         if (Input.GetKeyUp("space"))
         {
-            animator.SetBool("TakeOff", true);
+            animator.SetBool("IsKeyDownSpace", false);
 
             if (IsGrounded())
             {
