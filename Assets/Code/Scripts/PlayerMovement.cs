@@ -25,6 +25,9 @@ public class PlayerMovement : MonoBehaviour
     {
         horizontal = Input.GetAxisRaw("Horizontal");
 
+        animator.SetBool("TakeOff", false);
+        animator.SetBool("IsKeyDownSpace", false);
+
         animator.SetFloat("Speed", Mathf.Abs(horizontal));
 
         if (jumpingPower == 0.0f && IsGrounded())
@@ -35,15 +38,19 @@ public class PlayerMovement : MonoBehaviour
         if (!IsGrounded())
         {
             rb.sharedMaterial = BounMaterial2D;
+            animator.SetBool("IsJumping", true);
+            animator.SetBool("IsKeyDownSpace", true);
         }
         else
         {
             rb.sharedMaterial = NormMaterial2D;
+            animator.SetBool("IsJumping", false);
         }
 
         if (Input.GetKey("space") && IsGrounded())
         {
             jumpingPower += 0.05f;
+            animator.SetBool("IsKeyDownSpace", true);
         }
 
         if (Input.GetKeyDown("space") && IsGrounded())
@@ -60,6 +67,8 @@ public class PlayerMovement : MonoBehaviour
 
         if (Input.GetKeyUp("space"))
         {
+            animator.SetBool("TakeOff", true);
+
             if (IsGrounded())
             {
                 rb.velocity = new Vector2(horizontal * speed, jumpingPower);
