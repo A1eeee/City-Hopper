@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
-    public PhysicsMaterial2D BounMaterial2D, NormMaterial2D;
+    public PhysicsMaterial2D BounMaterial2D, NormMaterial2D, NoPlayerBounce2D;
     public Animator animator;
 
     [SerializeField] private Rigidbody2D rb;
@@ -24,8 +24,6 @@ public class PlayerMovement : MonoBehaviour
     private void Update()
     {
         horizontal = Input.GetAxisRaw("Horizontal");
-
-        animator.SetBool("IsKeyDownSpace", false);
 
         animator.SetFloat("Speed", Mathf.Abs(horizontal));
 
@@ -47,7 +45,7 @@ public class PlayerMovement : MonoBehaviour
 
         if (Input.GetKey("space") && IsGrounded())
         {
-            jumpingPower += 0.05f;
+            jumpingPower += 0.025f;
         }
 
         if (Input.GetKeyDown("space") && IsGrounded())
@@ -56,7 +54,7 @@ public class PlayerMovement : MonoBehaviour
             animator.SetBool("IsKeyDownSpace", true);
         }
 
-        if (jumpingPower >= 24f && IsGrounded())
+        if (jumpingPower >= 30f && IsGrounded())
         {
             animator.SetBool("IsKeyDownSpace", false);
             float tempy = jumpingPower;
@@ -64,12 +62,14 @@ public class PlayerMovement : MonoBehaviour
             Invoke("ResetJump", 0.2f);
         }
 
-        if (Input.GetKeyUp("space"))
+        if (Input.GetKeyUp("space") || !IsGrounded())
         {
+            BounMaterial2D.bounciness = 0.5f;
             animator.SetBool("IsKeyDownSpace", false);
 
             if (IsGrounded())
             {
+                BounMaterial2D.bounciness = 0.0f;
                 rb.velocity = new Vector2(horizontal * speed, jumpingPower);
                 jumpingPower = 0.0f;
             }
