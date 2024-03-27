@@ -1,6 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
@@ -12,6 +10,9 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private Transform groundCheck;
     [SerializeField] private LayerMask groundLayer;
     [SerializeField] private float jumpingPower = 0.0f;
+
+    private const float GroundCheckRadius = 0.2f;
+    private const float JumpPowerIncrement = 0.1f;
 
     private float horizontal;
     private float speed = 6.75f;
@@ -45,13 +46,15 @@ public class PlayerMovement : MonoBehaviour
 
         if (Input.GetKey("space") && IsGrounded())
         {
-            jumpingPower += 0.025f;
-        }
-
-        if (Input.GetKeyDown("space") && IsGrounded())
-        {
+            jumpingPower += JumpPowerIncrement;
             rb.velocity = new Vector2(0.0f, rb.velocity.y);
             animator.SetBool("IsKeyDownSpace", true);
+        }
+        else if (Input.GetKeyUp("space") && IsGrounded())
+        {
+            rb.velocity = new Vector2(horizontal * speed, jumpingPower);
+            StartCoroutine(ResetJump());
+            animator.SetBool("IsKeyDownSpace", false);
         }
 
         if (jumpingPower >= 30f && IsGrounded())
@@ -59,7 +62,7 @@ public class PlayerMovement : MonoBehaviour
             animator.SetBool("IsKeyDownSpace", false);
             float tempy = jumpingPower;
             rb.velocity = new Vector2(horizontal * speed, tempy);
-            Invoke("ResetJump", 0.2f);
+            StartCoroutine(ResetJump());
         }
 
         if (Input.GetKeyUp("space") || !IsGrounded())
@@ -75,27 +78,33 @@ public class PlayerMovement : MonoBehaviour
             }
         }
 
-        Flip();
+        if (horizontal > 0 && !isFacingRight)
+        {
+            Flip();
+        }
+        else if (horizontal < 0 && isFacingRight)
+        {
+            Flip();
+        }
     }
 
-    private void ResetJump()
+    private IEnumerator ResetJump()
     {
+        yield return new WaitForSeconds(0.2f);
         jumpingPower = 0.0f;
     }
 
     private bool IsGrounded()
     {
-        return Physics2D.OverlapCircle(groundCheck.position, 0.2f, groundLayer);
+        return Physics2D.OverlapCircle(groundCheck.position, GroundCheckRadius, groundLayer);
     }
 
     private void Flip()
     {
-        if (isFacingRight && horizontal < 0 || !isFacingRight && horizontal > 0f)
-        {
-            isFacingRight = !isFacingRight;
-            Vector3 localScale = transform.localScale;
-            localScale.x *= -1;
-            transform.localScale = localScale;
-        }
+        isFacingRight = !isFacingRight;
+        Vector3 localScale = transform.localScale;
+        localScale.x *= -1;
+        transform.localScale = localScale;
     }
 }
+
