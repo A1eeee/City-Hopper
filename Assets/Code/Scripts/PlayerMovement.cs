@@ -12,7 +12,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float jumpingPower = 0.0f;
 
     private const float GroundCheckRadius = 0.2f;
-    private const float JumpPowerIncrement = 0.1f;
+    private const float JumpPowerIncrement = 0.05f;
 
     private float horizontal;
     private float speed = 6.75f;
@@ -57,7 +57,7 @@ public class PlayerMovement : MonoBehaviour
             animator.SetBool("IsKeyDownSpace", false);
         }
 
-        if (jumpingPower >= 30f && IsGrounded())
+        if (jumpingPower >= 25f && IsGrounded())
         {
             animator.SetBool("IsKeyDownSpace", false);
             float tempy = jumpingPower;
