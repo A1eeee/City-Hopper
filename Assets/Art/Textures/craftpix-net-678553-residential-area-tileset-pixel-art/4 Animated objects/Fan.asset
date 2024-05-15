@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 13b75c95f34a00d4e8c04f76b73312e6, type: 3}
+  m_Name: Fan
+  m_EditorClassIdentifier: 
+  m_AnimatedSprites:
+  - {fileID: 1241694965, guid: 75c64e7f430e54547a2d5fc59ae50d47, type: 3}
+  - {fileID: -1108759480, guid: 75c64e7f430e54547a2d5fc59ae50d47, type: 3}
+  - {fileID: -452374926, guid: 75c64e7f430e54547a2d5fc59ae50d47, type: 3}
+  - {fileID: -1960426801, guid: 75c64e7f430e54547a2d5fc59ae50d47, type: 3}
+  m_MinSpeed: 4
+  m_MaxSpeed: 4
+  m_AnimationStartTime: 0
+  m_AnimationStartFrame: 0
+  m_TileColliderType: 0
+  m_TileAnimationFlags: 0
