@@ -1,10 +1,15 @@
 using System.Collections;
+using TMPro;
 using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
     public PhysicsMaterial2D BounMaterial2D, NormMaterial2D;
     public Animator animator;
+
+    public TextMeshProUGUI timerText;
+
+    public float elepsedTime;
 
     [SerializeField] private Rigidbody2D rb;
     [SerializeField] private Transform groundCheck;
@@ -21,6 +26,11 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     private void Update()
     {
+        elepsedTime += Time.deltaTime;
+        int minutes = Mathf.FloorToInt(elepsedTime / 60);
+        int seconds = Mathf.FloorToInt(elepsedTime % 60);
+        timerText.text = string.Format("{0:00}:{1:00}", minutes, seconds);
+
         horizontal = Input.GetAxisRaw("Horizontal");
 
         animator.SetFloat("Speed", Mathf.Abs(horizontal));
@@ -112,6 +122,8 @@ public class PlayerMovement : MonoBehaviour
     public void LoadPlayer()
     {
         PlayerData data = SaveSystem.LoadPlayer();
+
+        elepsedTime = data.elepsedTime;
 
         Vector3 position;
         position.x = data.position[0];
