@@ -1,13 +1,9 @@
-using System.Collections;
-using System.Collections.Generic;
-using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class PauseMenu : MonoBehaviour
 {
-
-    public static bool  IsGamePaused = false;
+    public static bool IsGamePaused = false;
 
     public GameObject pauseMenuUi;
 
@@ -34,16 +30,11 @@ public class PauseMenu : MonoBehaviour
         IsGamePaused = false;
     }
 
-    void Pause()
+    private void Pause()
     {
         pauseMenuUi.SetActive(true);
         Time.timeScale = 0;
         IsGamePaused = true;
-    }
-
-    public void LoadMainMenu()
-    {
-        SceneManager.LoadSceneAsync(0);
     }
 
     public void Quit()

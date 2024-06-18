@@ -1,8 +1,8 @@
-using UnityEngine;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
+using UnityEngine;
 
-public static class SaveSystem 
+public static class SaveSystem
 {
     private static string path = Application.persistentDataPath + "/player.cityHopper";
 

@@ -1,10 +1,9 @@
 using System.Collections;
 using UnityEngine;
-using UnityEngine.UIElements;
 
 public class PlayerMovement : MonoBehaviour
 {
-    public PhysicsMaterial2D BounMaterial2D, NormMaterial2D, NoPlayerBounce2D;
+    public PhysicsMaterial2D BounMaterial2D, NormMaterial2D;
     public Animator animator;
 
     [SerializeField] private Rigidbody2D rb;
