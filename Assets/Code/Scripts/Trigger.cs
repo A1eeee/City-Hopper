@@ -6,10 +6,13 @@ using UnityEngine.SceneManagement;
 
 public class SceneTransiton : MonoBehaviour
 {
-    public string sceneToLoad;
-
-    public void OnTriggerEnter2D(Collider2D other)
+    public void OnTriggerEnter2D(Collider2D collision)
     {
-        SceneManager.LoadSceneAsync(sceneToLoad);
+        Debug.Log("Hi");
+
+        if (collision.gameObject.tag == "Player")
+        {
+            SceneManager.LoadSceneAsync(3);
+        }
     }
 }
