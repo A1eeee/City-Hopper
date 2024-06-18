@@ -8,8 +8,6 @@ public class SceneTransiton : MonoBehaviour
 {
     public void OnTriggerEnter2D(Collider2D collision)
     {
-        Debug.Log("Hi");
-
         if (collision.gameObject.tag == "Player")
         {
             SceneManager.LoadSceneAsync(3);
