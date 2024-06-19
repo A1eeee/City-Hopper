@@ -6,6 +6,9 @@ public class PlayerMovement : MonoBehaviour
 {
     public PhysicsMaterial2D BounMaterial2D, NormMaterial2D;
     public Animator animator;
+    public GameObject footstep;
+    public GameObject jumpSound;
+    public GameObject collisionSound;
 
     public TextMeshProUGUI timerText;
 
@@ -18,10 +21,20 @@ public class PlayerMovement : MonoBehaviour
 
     private const float GroundCheckRadius = 0.2f;
     private const float JumpPowerIncrement = 0.05f;
+    private const float MaxJumpPower = 25f; // Maximum jumping power
 
     private float horizontal;
     private float speed = 6.75f;
     private bool isFacingRight = true;
+    private bool isFootstepActive = false;
+    private bool isJumping = false;
+
+    void Start()
+    {
+        footstep.SetActive(false);
+        jumpSound.SetActive(false);
+        collisionSound.SetActive(false);
+    }
 
     // Update is called once per frame
     private void Update()
@@ -44,6 +57,7 @@ public class PlayerMovement : MonoBehaviour
         {
             rb.sharedMaterial = BounMaterial2D;
             animator.SetBool("IsJumping", true);
+            StopFootsteps();
         }
         else
         {
@@ -56,20 +70,22 @@ public class PlayerMovement : MonoBehaviour
             jumpingPower += JumpPowerIncrement;
             rb.velocity = new Vector2(0.0f, rb.velocity.y);
             animator.SetBool("IsKeyDownSpace", true);
+            isJumping = true;
         }
         else if (Input.GetKeyUp("space") && IsGrounded())
         {
             rb.velocity = new Vector2(horizontal * speed, jumpingPower);
             StartCoroutine(ResetJump());
             animator.SetBool("IsKeyDownSpace", false);
+            PlayJumpSound();
         }
 
-        if (jumpingPower >= 25f && IsGrounded())
+        if (jumpingPower >= MaxJumpPower && IsGrounded())
         {
             animator.SetBool("IsKeyDownSpace", false);
-            float tempy = jumpingPower;
-            rb.velocity = new Vector2(horizontal * speed, tempy);
+            rb.velocity = new Vector2(horizontal * speed, jumpingPower);
             StartCoroutine(ResetJump());
+            PlayJumpSound();
         }
 
         if (Input.GetKeyUp("space") || !IsGrounded())
@@ -82,6 +98,11 @@ public class PlayerMovement : MonoBehaviour
                 BounMaterial2D.bounciness = 0.0f;
                 rb.velocity = new Vector2(horizontal * speed, jumpingPower);
                 jumpingPower = 0.0f;
+                if (isJumping)
+                {
+                    PlayJumpSound();
+                    isJumping = false;
+                }
             }
         }
 
@@ -93,6 +114,51 @@ public class PlayerMovement : MonoBehaviour
         {
             Flip();
         }
+
+        HandleFootsteps();
+    }
+
+    private void HandleFootsteps()
+    {
+        if (IsGrounded() && !Input.GetKey("space"))
+        {
+            if ((Input.GetKeyDown("a") || Input.GetKeyDown("d") || Input.GetKeyDown(KeyCode.LeftArrow) || Input.GetKeyDown(KeyCode.RightArrow)) && !isFootstepActive)
+            {
+                footsteps();
+            }
+            if ((Input.GetKeyUp("a") || Input.GetKeyUp("d") || Input.GetKeyUp(KeyCode.LeftArrow) || Input.GetKeyUp(KeyCode.RightArrow)) && isFootstepActive)
+            {
+                StopFootsteps();
+            }
+        }
+        else
+        {
+            StopFootsteps();
+        }
+    }
+
+    private void footsteps()
+    {
+        footstep.SetActive(true);
+        isFootstepActive = true;
+    }
+
+    private void StopFootsteps()
+    {
+        footstep.SetActive(false);
+        isFootstepActive = false;
+    }
+
+    private void PlayJumpSound()
+    {
+        jumpSound.SetActive(true);
+        StartCoroutine(StopJumpSound());
+    }
+
+    private IEnumerator StopJumpSound()
+    {
+        yield return new WaitForSeconds(1f); // Adjust the duration as needed
+        jumpSound.SetActive(false);
     }
 
     private IEnumerator ResetJump()
@@ -112,6 +178,23 @@ public class PlayerMovement : MonoBehaviour
         Vector3 localScale = transform.localScale;
         localScale.x *= -1;
         transform.localScale = localScale;
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        PlayCollisionSound();
+    }
+
+    private void PlayCollisionSound()
+    {
+        collisionSound.SetActive(true);
+        StartCoroutine(StopCollisionSound());
+    }
+
+    private IEnumerator StopCollisionSound()
+    {
+        yield return new WaitForSeconds(1f); // Adjust the duration as needed
+        collisionSound.SetActive(false);
     }
 
     public void SavePlayer()
