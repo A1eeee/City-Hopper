@@ -1,6 +1,6 @@
 using System.Collections;
-using TMPro;
 using UnityEngine;
+using TMPro;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -20,7 +20,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float jumpingPower = 0.0f;
 
     private const float GroundCheckRadius = 0.2f;
-    private const float JumpPowerIncrement = 0.05f;
+    private const float JumpPowerIncrement = 0.3f;
     private const float MaxJumpPower = 25f; // Maximum jumping power
 
     private float horizontal;
